@@ -1,7 +1,15 @@
 import './bootstrap';
 
-import Alpine from 'alpinejs';
+import { createIcons, icons } from 'lucide';
 
-window.Alpine = Alpine;
+function renderIcons() {
+    createIcons({ icons });
+}
 
-Alpine.start();
+document.addEventListener('DOMContentLoaded', renderIcons);
+
+// Re-render icons after Livewire/Alpine navigation if applicable
+document.addEventListener('livewire:navigated', renderIcons);
+
+// Expose for manual re-trigger after dynamic DOM updates (e.g. after AJAX)
+window.renderLucideIcons = renderIcons;

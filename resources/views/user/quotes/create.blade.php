@@ -1,19 +1,35 @@
 <x-app-layout>
     <x-slot name="header">
-        <h2 class="font-bold text-2xl text-[#0f2c59] leading-tight">📝 Add Quote</h2>
+        <div class="flex items-center gap-2">
+            <span class="w-1 h-5 bg-blue-600 rounded-full"></span>
+            <h2 class="font-bold text-gray-800">Add Quote</h2>
+        </div>
     </x-slot>
 
-    <div class="max-w-xl mx-auto mt-8 px-4">
-        <div class="bg-white shadow-md rounded-xl p-6">
+    <div class="w-full">
+        <div class="bg-white rounded-2xl shadow-sm p-6 sm:p-8">
             <form method="POST" action="{{ route('quotes.store') }}">
                 @csrf
 
-                <label for="content" class="block mb-2 font-medium text-gray-700">Type your quote:</label>
-                <textarea name="content" rows="4" id="content" class="w-full border border-gray-300 rounded-lg p-3 focus:ring-2 focus:ring-[#0f2c59] focus:outline-none" required placeholder="Example: Life is a journey of struggle, not a path of escape."></textarea>
+                <label for="content" class="block mb-1.5 font-semibold text-sm text-gray-700">Type your quote</label>
+                <textarea name="content" rows="5" id="content" required
+                          placeholder="Example: Life is a journey of struggle, not a path of escape."
+                          class="w-full rounded-xl border-gray-200 bg-gray-50/60 p-4 text-gray-800 placeholder:text-gray-400 shadow-sm focus:border-blue-500 focus:ring-2 focus:ring-blue-500 transition @error('content') border-red-400 @enderror">{{ old('content') }}</textarea>
+                @error('content')
+                    <p class="mt-2 text-sm text-red-500">{{ $message }}</p>
+                @enderror
 
-                <button type="submit" class="mt-4 bg-[#f4b400] hover:bg-yellow-400 text-black font-semibold px-5 py-2 rounded-lg transition duration-200 ease-in-out">
-                    🚀 Post Quote
-                </button>
+                <div class="mt-6 flex items-center justify-end gap-3">
+                    <a href="{{ route('quotes.index') }}"
+                       class="inline-flex items-center justify-center px-5 py-2.5 bg-gray-100 hover:bg-gray-200 text-gray-600 font-bold text-sm rounded-xl transition-colors">
+                        Cancel
+                    </a>
+                    <button type="submit"
+                            class="inline-flex items-center justify-center gap-2 px-5 py-2.5 bg-blue-600 hover:bg-blue-700 text-white font-bold text-sm rounded-xl shadow-sm transition-colors">
+                        <i data-lucide="send" class="w-4 h-4"></i>
+                        Post Quote
+                    </button>
+                </div>
             </form>
         </div>
     </div>

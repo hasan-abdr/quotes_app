@@ -11,7 +11,12 @@ use App\Http\Controllers\Admin\AdminQuoteController;
 
 Route::get('/', function () {
     return view('welcome');
-});
+})->name('home');
+
+Route::get('/explore', function () {
+    $quotes = \App\Models\Quote::with('user')->latest()->get();
+    return view('explore', compact('quotes'));
+})->name('explore');
 
 Route::get('/dashboard', function () {
     return view('dashboard');

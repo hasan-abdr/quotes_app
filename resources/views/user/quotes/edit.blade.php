@@ -1,31 +1,36 @@
 <x-app-layout>
     <x-slot name="header">
-        <h2 class="font-bold text-2xl text-[#0f2c59] leading-tight">
-            ✏️ Edit Quote
-        </h2>
+        <div class="flex items-center gap-2">
+            <span class="w-1 h-5 bg-blue-600 rounded-full"></span>
+            <h2 class="font-bold text-gray-800">Edit Quote</h2>
+        </div>
     </x-slot>
 
-    <div class="max-w-2xl mx-auto py-10 px-4">
-        <form method="POST" action="{{ route('quotes.update', $quote->id) }}">
-            @csrf
-            @method('PUT')
+    <div class="w-full">
+        <div class="bg-white rounded-2xl shadow-sm p-6 sm:p-8">
+            <form method="POST" action="{{ route('quotes.update', $quote->id) }}">
+                @csrf
+                @method('PUT')
 
-            <div class="mb-6">
-                <label for="content" class="block text-md font-semibold text-[#0f2c59] mb-2">Quote Content</label>
-                <textarea name="content" id="content" rows="4"
-                    class="w-full border border-gray-300 rounded-lg shadow-sm p-3 focus:ring-2 focus:ring-[#0f2c59] focus:outline-none"
-                    required>{{ old('content', $quote->content) }}</textarea>
+                <label for="content" class="block mb-1.5 font-semibold text-sm text-gray-700">Quote content</label>
+                <textarea name="content" id="content" rows="5" required
+                          class="w-full rounded-xl border-gray-200 bg-gray-50/60 p-4 text-gray-800 placeholder:text-gray-400 shadow-sm focus:border-blue-500 focus:ring-2 focus:ring-blue-500 transition @error('content') border-red-400 @enderror">{{ old('content', $quote->content) }}</textarea>
                 @error('content')
-                    <p class="text-sm text-red-500 mt-1">{{ $message }}</p>
+                    <p class="mt-2 text-sm text-red-500">{{ $message }}</p>
                 @enderror
-            </div>
 
-            <div class="flex justify-end gap-3">
-                <a href="{{ route('quotes.mine') }}"
-                   class="bg-gray-200 text-gray-800 px-4 py-2 rounded-lg hover:bg-gray-300 font-semibold">Cancel</a>
-                <button type="submit"
-                    class="bg-[#0f2c59] text-white px-5 py-2 rounded-lg hover:bg-[#0d234a] font-semibold transition">💾 Save</button>
-            </div>
-        </form>
+                <div class="mt-6 flex items-center justify-end gap-3">
+                    <a href="{{ route('quotes.mine') }}"
+                       class="inline-flex items-center justify-center px-5 py-2.5 bg-gray-100 hover:bg-gray-200 text-gray-600 font-bold text-sm rounded-xl transition-colors">
+                        Cancel
+                    </a>
+                    <button type="submit"
+                            class="inline-flex items-center justify-center gap-2 px-5 py-2.5 bg-blue-600 hover:bg-blue-700 text-white font-bold text-sm rounded-xl shadow-sm transition-colors">
+                        <i data-lucide="save" class="w-4 h-4"></i>
+                        Save
+                    </button>
+                </div>
+            </form>
+        </div>
     </div>
 </x-app-layout>

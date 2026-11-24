@@ -1,44 +1,64 @@
 <x-app-layout>
     <x-slot name="header">
-        <h2 class="font-bold text-2xl text-[#0f2c59] leading-tight">
-            📊 App Statistics
-        </h2>
+        <div class="flex items-center gap-2">
+            <span class="w-1 h-5 bg-blue-600 rounded-full"></span>
+            <h2 class="font-bold text-gray-800">Statistics</h2>
+        </div>
     </x-slot>
 
-    <div class="py-8">
-        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="bg-white shadow-md rounded-xl p-6 border border-gray-200">
+    <div class="w-full space-y-8">
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+            <div class="bg-white border-l-4 border-blue-600 rounded-2xl shadow-sm p-6 flex items-center justify-between">
+                <div>
+                    <p class="text-xs font-semibold uppercase tracking-wider text-gray-400">Total Quotes</p>
+                    <p class="text-3xl font-extrabold text-gray-900 mt-2">{{ $quoteCount }}</p>
+                </div>
+                <div class="w-12 h-12 rounded-xl bg-blue-50 text-blue-600 flex items-center justify-center">
+                    <i data-lucide="quote" class="w-6 h-6"></i>
+                </div>
+            </div>
 
-                <!-- Statistik Umum -->
-                <h3 class="text-xl font-semibold text-[#0f2c59] mb-4">📌 General Statistics</h3>
-                <ul class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 mb-6 text-gray-800">
-                    <li class="bg-[#f4b400] text-white p-4 rounded-lg shadow flex items-center justify-between">
-                        <span class="text-sm sm:text-base">Total Quotes</span>
-                        <strong class="text-lg sm:text-xl">{{ $quoteCount }}</strong>
-                    </li>
-                    <li class="bg-[#0f2c59] text-white p-4 rounded-lg shadow flex items-center justify-between">
-                        <span class="text-sm sm:text-base">Total Users</span>
-                        <strong class="text-lg sm:text-xl">{{ $userCount }}</strong>
-                    </li>
-                    <li class="bg-[#f4b400] text-white p-4 rounded-lg shadow flex items-center justify-between">
-                        <span class="text-sm sm:text-base">Total Admins</span>
-                        <strong class="text-lg sm:text-xl">{{ $adminCount }}</strong>
-                    </li>
-                </ul>
+            <div class="bg-white border-l-4 border-blue-600 rounded-2xl shadow-sm p-6 flex items-center justify-between">
+                <div>
+                    <p class="text-xs font-semibold uppercase tracking-wider text-gray-400">Total Users</p>
+                    <p class="text-3xl font-extrabold text-gray-900 mt-2">{{ $userCount }}</p>
+                </div>
+                <div class="w-12 h-12 rounded-xl bg-blue-50 text-blue-600 flex items-center justify-center">
+                    <i data-lucide="users" class="w-6 h-6"></i>
+                </div>
+            </div>
 
-                <!-- Top 5 Users -->
-                <h3 class="text-xl font-semibold text-[#0f2c59] mb-4">🏆 Top 5 Users with the Most Quotes</h3>
-                <ul class="bg-gray-50 p-4 rounded-lg divide-y divide-gray-200">
-                    @forelse ($topUsers as $user)
-                        <li class="py-2 flex flex-col sm:flex-row sm:justify-between">
-                            <span class="text-sm sm:text-base">{{ $user->name }}</span>
-                            <span class="font-bold text-[#0f2c59] text-sm sm:text-base">{{ $user->quotes_count }} Quotes</span>
-                        </li>
-                    @empty
-                        <li class="py-2 text-gray-500 text-sm">No user data with quotes available yet.</li>
-                    @endforelse
-                </ul>
+            <div class="bg-white border-l-4 border-blue-600 rounded-2xl shadow-sm p-6 flex items-center justify-between">
+                <div>
+                    <p class="text-xs font-semibold uppercase tracking-wider text-gray-400">Total Admins</p>
+                    <p class="text-3xl font-extrabold text-gray-900 mt-2">{{ $adminCount }}</p>
+                </div>
+                <div class="w-12 h-12 rounded-xl bg-blue-50 text-blue-600 flex items-center justify-center">
+                    <i data-lucide="shield-check" class="w-6 h-6"></i>
+                </div>
+            </div>
+        </div>
 
+        <div>
+            <div class="flex items-center gap-2 mb-4">
+                <span class="w-1 h-5 bg-blue-600 rounded-full"></span>
+                <h3 class="font-bold text-gray-800">Top 5 Users</h3>
+            </div>
+
+            <div class="bg-white rounded-2xl shadow-sm divide-y divide-gray-100">
+                @forelse ($topUsers as $user)
+                    <div class="flex items-center justify-between px-6 py-4">
+                        <div class="flex items-center gap-3">
+                            <span class="w-8 h-8 rounded-full bg-blue-50 text-blue-600 text-sm font-bold flex items-center justify-center">
+                                {{ $loop->iteration }}
+                            </span>
+                            <span class="font-semibold text-gray-800">{{ $user->name }}</span>
+                        </div>
+                        <span class="text-sm font-bold text-blue-600">{{ $user->quotes_count }} Quotes</span>
+                    </div>
+                @empty
+                    <div class="px-6 py-10 text-center text-gray-500">No user data with quotes available yet.</div>
+                @endforelse
             </div>
         </div>
     </div>

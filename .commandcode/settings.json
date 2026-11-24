@@ -1,0 +1,12 @@
+{
+  "permissions": {
+    "allow": [
+      "Shell(php artisan view:clear 2>&1)",
+      "Shell(php artisan view:cache 2 >& 1)",
+      "Shell(php artisan view:clear 2 >& 1)",
+      "Shell(npm:*)"
+    ],
+    "deny": [],
+    "defaultMode": "default"
+  }
+}
